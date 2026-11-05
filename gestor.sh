@@ -1,5 +1,6 @@
 #!/bin/bash
-# Módulo 2: Gestión de archivos
+# Script: gestor.sh
+# Descripción: Menú interactivo para crear, copiar, cambiar permisos (644) y eliminar archivos.
 
 crear_archivo() {
     read -p "Ingrese el nombre del archivo a crear: " nombre

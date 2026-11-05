@@ -19,16 +19,12 @@ ver_tareas() {
 
 agregar_tarea() {
     echo -e "\n--- Agregar nueva tarea a Cron ---"
-    echo "Ejemplo de horario: 0 8 * * * (Todos los días a las 08:00 AM)"
     read -p "Ingrese la frecuencia cron (ej. 0 8 * * *): " frecuencia
-    
-    # Ruta por defecto del script de sistema del proyecto
     ruta_default="$(pwd)/sistema.sh"
     read -p "Ruta del script a automatizar [$ruta_default]: " comando
     comando=${comando:-$ruta_default}
 
     if [ -f "$comando" ]; then
-        # Agregar al crontab con redirección para el reporte fechado
         (crontab -l 2>/dev/null; echo "$frecuencia $comando >> $(pwd)/reporte_\$(date +\%F).txt") | crontab -
         echo "✅ ¡Tarea programada exitosamente en cron!"
     else

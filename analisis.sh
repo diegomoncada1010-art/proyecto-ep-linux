@@ -1,5 +1,6 @@
 #!/bin/bash
-# Módulo 3: Análisis de información con awk y sed
+# Script: analisis.sh
+# Descripción: Analiza el uso de disco de varios servidores con awk (> 70%) y sed.
 
 ORIGINAL="servidores.txt"
 COPIA="servidores_copia.txt"
