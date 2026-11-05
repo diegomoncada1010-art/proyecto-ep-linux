@@ -1,0 +1,5 @@
+Servidor Uso_Disco
+srv_web_01 45
+srv_db_01 85
+srv_app_01 72
+srv_backup 50

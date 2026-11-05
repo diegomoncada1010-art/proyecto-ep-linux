@@ -1,0 +1,5 @@
+Servidor Uso_Disco
+servidor_critico_web_01 45
+servidor_critico_db_01 85
+servidor_critico_app_01 72
+servidor_critico_backup 50
