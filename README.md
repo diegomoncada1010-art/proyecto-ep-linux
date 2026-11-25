@@ -1,26 +1,16 @@
-# Proyecto EPP: Automatización de Administración en Servidores Linux
+# Sistema de Monitoreo de Logs y Detección de Eventos Críticos (Shell Scripting)
 
-## 1. Descripción General del Proyecto
-Este repositorio contiene una suite integral de scripts desarrollados en **Bash** para Linux (Ubuntu/Debian), diseñada específicamente para automatizar y optimizar las tareas rutinarias de administración de sistemas en el área de TI. El proyecto resuelve problemáticas críticas como la supervisión avanzada de recursos de hardware (CPU, RAM, red y almacenamiento), la gestión segura de archivos, el filtrado de logs mediante `awk`/`sed` y la programación interactiva de tareas desatendidas mediante un gestor de `cron`.
+Suite de automatización en Bash sobre Ubuntu Linux (WSL2) diseñada para monitorear registros del sistema, auditar recursos de hardware en tiempo real y programar tareas desatendidas mediante Cron.
 
----
+## Scripts Principales
 
-## 2. Estructura y Arquitectura del Repositorio
+1. **`monitor_logs.sh`**: Analiza archivos de log (`sistema_eventos.log`) utilizando `awk`, `grep` y `sed`. Detecta eventos `CRITICAL`, `ERROR` e intentos fallidos de acceso (`Failed password`), genera un reporte fechado (`reporte_alertas_YYYY-MM-DD.txt`) y crea una copia sanitizada ocultando direcciones IP (`logs_sanitizados.log`).
+2. **`alerta_sistema.sh`**: Audita el procesador (`lscpu`), carga promedio (`uptime`), memoria RAM (`free`) y uso de disco (`df`). Si el disco supera el umbral del 70%, inyecta automáticamente un evento `CRITICAL` en el log central.
+3. **`cron_manager.sh`**: Gestor interactivo para administrar `crontab` sin editarlo manualmente. Permite elegir el script objetivo (`monitor_logs.sh` o `alerta_sistema.sh`) y programar frecuencias predefinidas o personalizadas.
 
-| Archivo / Módulo | Componente Técnico | Descripción Funcional |
-| :--- | :--- | :--- |
-| `sistema.sh` | Módulo 1 | Recolecta métricas avanzadas del procesador (CPU), kernel, memoria RAM, red y discos, generando un reporte detallado. |
-| `gestor.sh` | Módulo 2 | Menú interactivo modular (`while`, `case`, `if`) para crear, copiar, asegurar permisos (`644`) y borrar archivos con confirmación. |
-| `analisis.sh` | Módulo 3 | Analiza la saturación de discos mediante `awk` y aplica sustituciones masivas de nomenclaturas utilizando `sed`. |
-| `cron_manager.sh` | Módulo 4 | Interfaz amigable de consola para la administración visual, control y programación del demonio `cron`. |
-| `README.md` | Documentación | Manual técnico oficial del proyecto y guía de instalación y uso. |
+## Uso Rápido
 
----
-
-## 3. Requisitos previos e Instalación
-
-1. **Entorno de Ejecución:** Sistema operativo Linux (Ubuntu 22.04/24.04 LTS o Windows Subsystem for Linux - WSL2).
-2. **Dependencias Requeridas:** Intérprete `bash`, utilidades Coreutils (`df`, `chmod`, `cp`, `rm`, `touch`), herramientas de análisis (`lscpu`, `awk`, `sed`), y el planificador del sistema (`cron`).
-3. **Asignación de Permisos:** Antes de ejecutar los scripts por primera vez, otorga permisos de ejecución globales a los archivos dentro de la carpeta:
-   ```bash
-   chmod +x sistema.sh gestor.sh analisis.sh cron_manager.sh
+    chmod +x *.sh
+    ./monitor_logs.sh
+    ./alerta_sistema.sh
+    ./cron_manager.sh
